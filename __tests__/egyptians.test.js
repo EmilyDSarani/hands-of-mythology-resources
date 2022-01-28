@@ -55,7 +55,14 @@ describe('backend routes', () => {
     };
     expect(res.body).toEqual(expected);
   });
+  it('should delete god/goddess', async () => {
+    const egyptian = await Egyptian.insert({ name: 'Bastet', title: 'Fierce Warrior', animal: 'Cat/Lion'  });
+
+    const res = await request(app)
+      .delete(`/api/v1/egyptians/${egyptian.id}`);
+
+    expect(res.body).toEqual(egyptian);
+  });
 
 
-  
 });
