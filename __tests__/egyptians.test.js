@@ -32,4 +32,12 @@ describe('backend routes', () => {
     },
     { id: expect.any(String), name: 'Bastet', title: 'Fierce Warrior', animal: 'Cat' }]);
   });
+  it('should get egyptian god/goddess by id', async () => {
+    const egyptian = await Egyptian.insert({
+      name: 'Bastet', title: 'Fierce Warrior', animal: 'Cat' 
+    });
+    const res = await request(app).get(`/api/v1/egyptians/${egyptian.id}`);
+   
+    expect(res.body).toEqual(egyptian);
+  });
 });
