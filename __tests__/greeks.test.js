@@ -56,6 +56,13 @@ describe('backend routes', () => {
     };
     expect(res.body).toEqual(expected);
   });
+  it('should delete god/goddess', async () => {
+    const greek = await Greek.insert({ name: 'Ares', title: 'God of Courage, Battlelust, and War', romanName: 'Mars' });
 
+    const res = await request(app)
+      .delete(`/api/v1/greeks/${greek.id}`);
+
+    expect(res.body).toEqual(greek);
+  });
 
 });
