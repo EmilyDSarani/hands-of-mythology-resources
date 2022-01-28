@@ -54,5 +54,14 @@ describe('backend routes', () => {
     };
     expect(res.body).toEqual(expected);
   });
+  it('should delete god/goddess', async () => {
+    const norse = await Norse.insert({ name: 'Frigg', characteristic: 'Beautiful and Protective', power: 'Goddess of Love, Beauty, Fertility, and Fate' });
+
+    const res = await request(app)
+      .delete(`/api/v1/norses/${norse.id}`);
+
+    expect(res.body).toEqual(norse);
+  });
+
 
 });
