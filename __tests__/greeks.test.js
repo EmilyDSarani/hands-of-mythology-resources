@@ -42,4 +42,20 @@ describe('backend routes', () => {
    
     expect(res.body).toEqual(greek);
   });
+  it('should update greek god/goddess based on id', async() => {
+    const greek = await Greek.insert({
+      name: 'Ares', title: 'God of War', romanName: 'Mars' 
+    });
+    const res = await request(app)
+      .patch(`/api/v1/greeks/${greek.id}`)
+      .send({ name: 'Ares', title: 'God of Courage, Battlelust, and War', romanName: 'Mars' });
+
+    const expected = {
+      id: expect.any(String),
+      name: 'Ares', title: 'God of Courage, Battlelust, and War', romanName: 'Mars'
+    };
+    expect(res.body).toEqual(expected);
+  });
+
+
 });
