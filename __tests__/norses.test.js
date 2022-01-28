@@ -40,6 +40,19 @@ describe('backend routes', () => {
    
     expect(res.body).toEqual(norse);
   });
+  it('should update norse god/goddess based on id', async() => {
+    const norse = await Norse.insert({
+      name: 'Frigg', characteristic: 'Beautiful and Protective', power: 'Goddess of Love and Beauty'
+    });
+    const res = await request(app)
+      .patch(`/api/v1/norses/${norse.id}`)
+      .send({ name: 'Frigg', characteristic: 'Beautiful and Protective', power: 'Goddess of Love, Beauty, Fertility, and Fate' });
 
+    const expected = {
+      id: expect.any(String),
+      name: 'Frigg', characteristic: 'Beautiful and Protective', power: 'Goddess of Love, Beauty, Fertility, and Fate'
+    };
+    expect(res.body).toEqual(expected);
+  });
 
 });
