@@ -1,7 +1,7 @@
 const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
-const greeks = require('../lib/controllers/greeks');
+const app = require('../lib/app');
 
 describe('backend routes', () => {
   beforeEach(() => {
@@ -11,8 +11,9 @@ describe('backend routes', () => {
   afterAll(() => {
     pool.end();
   });
+
   it('should create a greek god/goddess', async() => {
-    const res = await request(greeks)
+    const res = await request(app)
       .post('/api/v1/greeks')
       .send({ name: 'Ares', title: 'God of War', romanName: 'Mars' });
 
