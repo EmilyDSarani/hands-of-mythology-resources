@@ -37,7 +37,20 @@ describe('backend routes', () => {
     const res = await request(app).get(`/api/v1/japaneses/${japanese.id}`);
    
     expect(res.body).toEqual(japanese);
-
-
   });
+  it('should update japanese god/goddess based on id', async() => {
+    const japanese = await Japanese.insert({
+      name: 'Yebisu', title: 'God of Luck', funFact: 'Yebisu is also the god of jellyfishes, given his initial boneless form'
+    });
+    const res = await request(app)
+      .patch(`/api/v1/japaneses/${japanese.id}`)
+      .send({ name: 'Yebisu', title: 'Deity of Fishermen and Luck', funFact: 'Yebisu is also the god of jellyfishes, given his initial boneless form' });
+
+    const expected = {
+      id: expect.any(String),
+      name: 'Yebisu', title: 'Deity of Fishermen and Luck', funFact: 'Yebisu is also the god of jellyfishes, given his initial boneless form'
+    };
+    expect(res.body).toEqual(expected);
+  });
+
 });
