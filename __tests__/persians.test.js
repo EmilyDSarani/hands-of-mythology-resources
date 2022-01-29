@@ -53,7 +53,14 @@ describe('backend routes', () => {
     };
     expect(res.body).toEqual(expected);
   });
+  it('should delete god/goddess', async () => {
+    const persian = await Persian.insert({ name: 'Anahita ', title: 'Goddess of Fertility, Water, Health and hHaling, and wisdom', funFact: 'Rides a Chariot of 4 horses: wind, rain, cloud, and sleet' });
 
+    const res = await request(app)
+      .delete(`/api/v1/persians/${persian.id}`);
+
+    expect(res.body).toEqual(persian);
+  });
 
 
 
