@@ -39,7 +39,20 @@ describe('backend routes', () => {
    
     expect(res.body).toEqual(persian);
   });
+  it('should update persian god/goddess based on id', async() => {
+    const persian = await Persian.insert({
+      name: 'Anahita ', title: 'Goddess of Water', funFact: 'Rides a Chariot of 4 horses: wind, rain, cloud, and sleet'
+    });
+    const res = await request(app)
+      .patch(`/api/v1/persians/${persian.id}`)
+      .send({ name: 'Anahita ', title: 'Goddess of Fertility, Water, Health and hHaling, and wisdom', funFact: 'Rides a Chariot of 4 horses: wind, rain, cloud, and sleet' });
 
+    const expected = {
+      id: expect.any(String),
+      name: 'Anahita ', title: 'Goddess of Fertility, Water, Health and hHaling, and wisdom', funFact: 'Rides a Chariot of 4 horses: wind, rain, cloud, and sleet'
+    };
+    expect(res.body).toEqual(expected);
+  });
 
 
 
