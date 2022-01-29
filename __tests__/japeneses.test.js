@@ -52,5 +52,13 @@ describe('backend routes', () => {
     };
     expect(res.body).toEqual(expected);
   });
+  it('should delete god/goddess', async () => {
+    const japanese = await Japanese.insert({ name: 'Yebisu', title: 'Deity of Fishermen and Luck', funFact: 'Yebisu is also the god of jellyfishes, given his initial boneless form' });
+
+    const res = await request(app)
+      .delete(`/api/v1/japaneses/${japanese.id}`);
+
+    expect(res.body).toEqual(japanese);
+  });
 
 });
